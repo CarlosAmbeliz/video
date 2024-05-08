@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <style>
+        body {
+            background-color: #161616;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .app{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .roboto-regular {
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        #video-container {
+            position: relative;
+            max-height: 60vh;
+            overflow: hidden;
+        }
+
+        .play-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-25px, -25px);
+        }
+
+        .actions {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-right: 15px;
+        }
+
+        .action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action img {
+            max-width: 40px;
+        }
+
+        .action img, #points {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .action img.clicked, #points.clicked {
+            transform: scale(1.2);
+        }
+
+        #video {
+            width: 100%;
+        }
+
+        footer {
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body class="roboto-regular">
+
+    <div class="app">
+        <nav>
+            <img id="return" style="width: 35px; height: 35px;" src="./assets/🦆 icon _arrow back_.png" alt="back" />
+            <img id="points" style="width: 35px; height: 35px;" src="./assets/🦆 icon _more horiz_.png" alt="menu" />
+        </nav>
+        <main>
+            <div id="video-container">
+                <video id="video" loop>
+                    <source src="VID_20240507_210141.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de videos.
+                </video>
+
+                <div class="actions">
+                    <div class="action" id="favorite">
+                        <img src="./assets/🦆 icon _favorite_.png" alt="favorite" />
+                        <span>0</span>
+                    </div>
+                    <div class="action" id="bookmark">
+                        <img src="./assets/🦆 icon _bookmark border_.png" alt="bookmark" />
+                        <span>0</span>
+                    </div>
+                </div>
+                <div class="play-container">
+                    <img id="trigger" src="./assets/🦆 icon _play circle outline_.png"
+                        style="width: 50px; height: 50px; cursor: pointer;" alt="play" />
+                </div>
+
+            </div>
+        </main>
+        <footer>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span>Carlos Ambeliz</span> <img style="width: 15px; height: 15px;" src="./assets/🦆 icon _public_.png"
+                    alt="public" />
+            </div>
+            <p> #Success #Strength #Achievement #Overcoming #Positivity #Motivator ...</p>
+        </footer>
+    </div>
+
+
+    <script>
+        document.getElementById('trigger').addEventListener('click', function () {
+            var video = document.getElementById('video');
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+            this.style.display = 'none'; // Oculta el elemento trigger al hacer clic
+        })
+
+        document.getElementById('favorite').addEventListener('click', function () {
+            var span = this.querySelector('#favorite span');
+            var image = this.querySelector('#favorite img');
+            image.classList.add('clicked');
+            var currentCount = parseInt(span.textContent);
+            span.textContent = currentCount + 1;
+            setTimeout(function () {
+                image.classList.remove('clicked');
+            }, 100); // tiempo de la transición en milisegundos (0.2s)
+        })
+
+        document.getElementById('bookmark').addEventListener('click', function () {
+            var span = this.querySelector('#bookmark span');
+            var span = this.querySelector('#bookmark span');
+            var image = this.querySelector('#bookmark img');
+            image.classList.add('clicked');
+            var currentCount = parseInt(span.textContent);
+            span.textContent = currentCount + 1;
+            setTimeout(function () {
+                image.classList.remove('clicked');
+            }, 100); // tiempo de la transición en milisegundos (0.2s)
+        });
+
+        document.getElementById('points').addEventListener('click', function (e) {
+            e.target.classList.add('clicked');
+            setTimeout(function () {
+                e.target.classList.remove('clicked');
+            }, 100); // tiempo de la transición en milisegundos (0.2s)
+        });
+
+
+        document.getElementById('return').addEventListener('click', function () {
+            Toastify({
+                text: "El perfil esta oculto",
+                duration: 1500, // Duración en milisegundos
+                newWindow: true,
+                close: false,
+                gravity: "top", // Posición: 'top', 'bottom', 'left', 'right'
+                position: 'center', // Dirección: 'top', 'center', 'bottom', 'left', 'right'
+                aligment: 'center',
+                style: {
+                    background: "red",
+                    padding: "15px",
+                    color: "white",
+                    textAlign: "center"
+                }
+            }).showToast();
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>
